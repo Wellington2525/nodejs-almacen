@@ -20,7 +20,7 @@ app.all('*', function(req, res, next) {
     res.header('Access-Control-Allow-Headers', 'mytoken')
     next()
   })
-import indexRoutes from "./routers/coustomer.routers.js";
+import indexRoutes from './routers/coustomer.routers.js';
 //urlAPI
 app.use("/api",indexRoutes);
 
@@ -33,38 +33,12 @@ app.use("/api",indexRoutes);
 const parser = new xml2js.Parser();
 app.get('/', (req, res) => {
      
-  let num1 =4
-  let num2 =5
-  if (num1 < num2) {
-    console.log("no")
-    
-  }else{
-  
     res.send("120.0.0.13 =>session start");
-  }
+  
   });
 
 
-  app.post("/api/xml", (req, res) => {
-    let xmlData = '';
-    req.on('data', (chunk) => {
-      xmlData += chunk.toString();
-
-    });
-
-    req.on('end', ()=>{
-      parser.parseString(xmlData, (err, results)=>{
-        if(err){
-          console.error('Error parsin XML:', err);
-          res.status(400).send('Invalid XML');
-        }else{
-          console.log('Parsed XML:', results);
-          res.status(200).send('XML data received');
-        }
-      });
-    });
-  });
-
+ 
 // static files
 //app.use(express.static(path.join(__dirname, "public")));
 

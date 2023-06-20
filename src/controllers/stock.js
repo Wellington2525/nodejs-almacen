@@ -189,7 +189,7 @@ export const compraproductos =async (req, res)=>{
 export const allcompras = async (req, res, next) => {
     try {
 
-    const [rows] = await pool.query("select c.id,pv.nombre as Proveedor, prod.nombre as Producto,prod.precio as Precio,c.cantidad, sum(c.cantidad*prod.precio) as Toal from sistventa.compras c inner join  proveedores pv on c.proveedor_id = pv.id inner join productos prod on c. producto_id = prod.id group by c.id,prod.nombre");
+    const [rows] = await pool.query("select c.id,c.fecha_compra as Fecha,pv.nombre as Proveedor, prod.nombre as Producto,prod.precio as Precio,c.cantidad, sum(c.cantidad*prod.precio) as Toal from sistventa.compras c inner join  proveedores pv on c.proveedor_id = pv.id inner join productos prod on c. producto_id = prod.id group by c.id,prod.nombre");
         if (rows.length <0) {
             return res.status(404).json({message: "Error en el servicio"});
             
@@ -206,7 +206,7 @@ export const allcompras = async (req, res, next) => {
 export const idcompras = async (req, res, next) => {
     try {
     const {id} = req.body;
-    const [rows] = await pool.query("select c.id,pv.nombre as Proveedor, prod.nombre as Producto,prod.precio as Precio,c.cantidad, sum(c.cantidad*prod.precio) as Toal from sistventa.compras c inner join  proveedores pv on c.proveedor_id = pv.id inner join productos prod on c. producto_id = prod.id where prod.id=?  group by c.id,prod.nombre",[id]);
+    const [rows] = await pool.query("select c.id,c.fecha_compra as Fecha,pv.nombre as Proveedor, prod.nombre as Producto,prod.precio as Precio,c.cantidad, sum(c.cantidad*prod.precio) as Toal from sistventa.compras c inner join  proveedores pv on c.proveedor_id = pv.id inner join productos prod on c. producto_id = prod.id where prod.id=?  group by c.id,prod.nombre",[id]);
         if (rows.length <=0) {
             return res.status(404).json({message: "Compra no found"});
             

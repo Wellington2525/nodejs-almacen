@@ -7,3 +7,9 @@ export const pool = createPool({
     port: 3306,
     database: 'sistventa'
 });
+
+
+pool.getConnection(function(err){
+    if(err) throw err;
+    console.log("Database connected!")
+});
